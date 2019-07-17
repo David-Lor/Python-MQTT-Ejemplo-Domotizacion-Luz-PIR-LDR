@@ -1,5 +1,5 @@
 import paho.mqtt.client as mqtt
-from light_controller import settings
+from settings import settings
 
 if __name__ == "__main__":
     client = mqtt.Client()

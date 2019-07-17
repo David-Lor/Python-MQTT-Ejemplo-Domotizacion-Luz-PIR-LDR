@@ -1,21 +1,5 @@
 import paho.mqtt.client as mqtt
-from dotenv_settings_handler import BaseSettingsHandler
-from dotenv import load_dotenv
-
-
-class MySettings(BaseSettingsHandler):
-    """Settings definition"""
-    light_cmd_topic: str
-    light_stat_topic: str
-    ldr_topic: str
-    pir_topic: str
-    ldr_threshold: float
-    broker = "127.0.0.1"
-    port = 1883
-
-    class Config:
-        env_prefix = "LC_"
-
+from settings import settings
 
 ldr_value = 100  # Last LDR value received
 light_stat = False  # Light Stat (as sent from here)
@@ -56,9 +40,6 @@ def on_message(*args):
         elif payload == "OFF" and light_stat:
             turn_light(False)
 
-
-load_dotenv()
-settings = MySettings()
 
 client = mqtt.Client()
 client.on_connect = on_connect
